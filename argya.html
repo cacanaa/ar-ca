@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>argya raka</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #FFE8EC;
+      --soft: #FFCAD4;
+      --red: #FF3B4E;
+      --white: #FFFFFF;
+      --black: #141414;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #F6CFD7;
+      background-image:
+        linear-gradient(to right, rgba(20, 20, 20, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20, 20, 20, 0.07) 1px, transparent 1px);
+      background-size: 22px 22px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--black);
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 420px;
+      min-height: 100vh;
+      background-color: var(--bg);
+      background-image: radial-gradient(rgba(20, 20, 20, 0.14) 1px, transparent 1px);
+      background-size: 16px 16px;
+      border-left: 2.5px solid var(--black);
+      border-right: 2.5px solid var(--black);
+      box-shadow: 0 18px 45px rgba(20, 20, 20, 0.16);
+      padding: 14px 14px 48px;
+      position: relative;
+    }
+
+    @media (max-width: 420px) {
+      .app {
+        border-left: none;
+        border-right: none;
+      }
+    }
+
+    .font-hd {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    /* Navbar */
+    .nav {
+      position: sticky;
+      top: 8px;
+      z-index: 30;
+      background: var(--white);
+      border: 2.5px solid var(--black);
+      border-radius: 18px;
+      box-shadow: 0 4px 0 var(--black);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 46px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      background: var(--red);
+      border: 2px solid var(--black);
+    }
+
+    /* Spider-Man Animations */
+    @keyframes swingLeft {
+      0%, 100% { transform: rotate(-7deg); }
+      50% { transform: rotate(6deg); }
+    }
+
+    @keyframes swingRight {
+      0%, 100% { transform: rotate(7deg); }
+      50% { transform: rotate(-6deg); }
+    }
+
+    @keyframes popBounce {
+      0% { transform: translateY(0) scale(1); }
+      35% { transform: translateY(14px) scale(0.95, 1.06); }
+      70% { transform: translateY(-4px) scale(1.03, 0.97); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    .spidey-l {
+      transform-origin: top center;
+      animation: swingLeft 3.1s ease-in-out infinite;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .spidey-r {
+      transform-origin: top center;
+      animation: swingRight 3.5s ease-in-out infinite;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .spidey-bounce {
+      animation: popBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+
+    .spidey-bubble {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 99px;
+      border: 1.5px solid var(--white);
+      margin-top: 2px;
+      display: none;
+    }
+
+    .spidey-bubble.show {
+      display: inline-block;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--white);
+      border: 2.5px solid var(--black);
+      border-radius: 20px;
+      box-shadow: 4px 4px 0 var(--black);
+      padding: 18px;
+      position: relative;
+    }
+
+    .card-pink {
+      background: var(--soft);
+    }
+
+    .hero-wrap {
+      margin-top: 38px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--soft);
+      border: 2px solid var(--black);
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      margin-bottom: 8px;
+    }
+
+    /* Switcher Tabs */
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .tab-btn {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 6px;
+      border-radius: 12px;
+      border: 2px solid var(--black);
+      background: var(--white);
+      color: var(--black);
+      box-shadow: 2.5px 2.5px 0 var(--black);
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: var(--black);
+      color: var(--white);
+      box-shadow: 2.5px 2.5px 0 var(--red);
+    }
+
+    /* Interactive Box Text */
+    .box-trigger {
+      margin-top: 14px;
+      background: var(--bg);
+      border: 2px solid var(--black);
+      border-radius: 15px;
+      padding: 13px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .box-trigger:active {
+      background: var(--soft);
+    }
+
+    .box-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .box-body {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1.5px dashed rgba(20, 20, 20, 0.25);
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 600;
+      display: none;
+    }
+
+    .box-trigger.open .box-body {
+      display: block;
+    }
+
+    /* Stack Box List */
+    .stack {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mini-box {
+      background: var(--white);
+      border: 2px solid var(--black);
+      border-radius: 15px;
+      box-shadow: 3px 3px 0 var(--black);
+      padding: 12px 13px;
+      cursor: pointer;
+    }
+
+    .mini-box.pink {
+      background: var(--soft);
+    }
+
+    .mini-box:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--black);
+    }
+
+    .mini-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .mini-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+
+    .mini-note {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1.5px dashed rgba(20, 20, 20, 0.25);
+      font-size: 12.5px;
+      line-height: 1.45;
+      font-weight: 600;
+      display: none;
+    }
+
+    .mini-box.open .mini-note {
+      display: block;
+    }
+
+    /* Floating toast */
+    @keyframes riseFade {
+      0% { opacity: 1; transform: translateY(0) scale(0.9); }
+      100% { opacity: 0; transform: translateY(-65px) scale(1.05); }
+    }
+
+    .pop-toast {
+      position: fixed;
+      z-index: 99;
+      pointer-events: none;
+      background: var(--black);
+      color: var(--white);
+      border: 1.5px solid var(--white);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 99px;
+      animation: riseFade 0.95s ease-out forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Spider-Man -->
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <g id="spidey-hang">
+        <line x1="50" y1="0" x2="50" y2="18" stroke="#141414" stroke-width="4" />
+        <ellipse cx="34" cy="22" rx="6" ry="5" fill="#FF3B4E" stroke="#141414" stroke-width="3.5" />
+        <ellipse cx="66" cy="22" rx="6" ry="5" fill="#FF3B4E" stroke="#141414" stroke-width="3.5" />
+        <rect x="34" y="22" width="32" height="20" rx="10" fill="#141414" />
+        <rect x="42" y="24" width="16" height="16" fill="#FF3B4E" />
+        <circle cx="50" cy="32" r="3" fill="#141414" />
+        <rect x="21" y="38" width="58" height="48" rx="25" fill="#FF3B4E" stroke="#141414" stroke-width="4.2" />
+        <line x1="50" y1="39" x2="50" y2="85" stroke="#141414" stroke-width="1.8" opacity="0.35" />
+        <line x1="23" y1="62" x2="77" y2="62" stroke="#141414" stroke-width="1.8" opacity="0.35" />
+        <line x1="29" y1="46" x2="71" y2="78" stroke="#141414" stroke-width="1.8" opacity="0.35" />
+        <line x1="71" y1="46" x2="29" y2="78" stroke="#141414" stroke-width="1.8" opacity="0.35" />
+        <path d="M28 60C28 51 38 48 46 57C47 58 46 67 37 68C30 69 28 65 28 60Z" fill="#FFFFFF" stroke="#141414" stroke-width="3.8" />
+        <path d="M72 60C72 51 62 48 54 57C53 58 54 67 63 68C70 69 72 65 72 60Z" fill="#FFFFFF" stroke="#141414" stroke-width="3.8" />
+      </g>
+
+      <g id="spidey-mask">
+        <rect x="18" y="16" width="64" height="62" rx="28" fill="#FF3B4E" stroke="#141414" stroke-width="4" />
+        <line x1="50" y1="17" x2="50" y2="77" stroke="#141414" stroke-width="1.8" opacity="0.35" />
+        <line x1="20" y1="47" x2="80" y2="47" stroke="#141414" stroke-width="1.8" opacity="0.35" />
+        <line x1="27" y1="25" x2="73" y2="69" stroke="#141414" stroke-width="1.8" opacity="0.35" />
+        <line x1="73" y1="25" x2="27" y2="69" stroke="#141414" stroke-width="1.8" opacity="0.35" />
+        <path d="M26 45C26 36 37 33 46 42C47 43 46 54 36 55C28 56 26 51 26 45Z" fill="#FFFFFF" stroke="#141414" stroke-width="3.8" />
+        <path d="M74 45C74 36 63 33 54 42C53 43 54 54 64 55C72 56 74 51 74 45Z" fill="#FFFFFF" stroke="#141414" stroke-width="3.8" />
+      </g>
+    </defs>
+  </svg>
+
+  <div class="app">
+
+    <!-- NAVBAR + 3 SPIDER-MAN BERGANTUNG -->
+    <header class="nav">
+      <div class="nav-left">
+        <span class="dot"></span>
+        <span>akaa</span>
+      </div>
+
+      <div id="sp1" class="spidey-l" style="position:absolute; left:74px; top:-2px;" onclick="hitSpidey('sp1','b1',event)">
+        <svg width="42" height="54" viewBox="0 0 100 92"><use href="#spidey-hang"></use></svg>
+        <div style="text-align:center"><span id="b1" class="spidey-bubble">halo</span></div>
+      </div>
+
+      <div id="sp2" class="spidey-r" style="position:absolute; left:50%; margin-left:-24px; top:-4px;" onclick="hitSpidey('sp2','b2',event)">
+        <svg width="48" height="60" viewBox="0 0 100 92"><use href="#spidey-hang"></use></svg>
+        <div style="text-align:center"><span id="b2" class="spidey-bubble">thwip</span></div>
+      </div>
+
+      <div id="sp3" class="spidey-l" style="position:absolute; right:74px; top:-2px;" onclick="hitSpidey('sp3','b3',event)">
+        <svg width="42" height="54" viewBox="0 0 100 92"><use href="#spidey-hang"></use></svg>
+        <div style="text-align:center"><span id="b3" class="spidey-bubble">aman</span></div>
+      </div>
+    </header>
+
+    <!-- HERO + TABS + BOX TEXT -->
+    <section class="card hero-wrap">
+      <div id="sp4" style="position:absolute; right:14px; top:-24px; cursor:pointer;" onclick="hitSpidey('sp4','b4',event)">
+        <svg width="44" height="44" viewBox="0 0 100 90"><use href="#spidey-mask"></use></svg>
+        <div style="text-align:center"><span id="b4" class="spidey-bubble">nongol</span></div>
+      </div>
+
+      <span class="tag">di baca yaaa</span>
+      <h1 class="font-hd" style="font-size:26px; line-height:1.15;">hi argyaa</h1>
+      <p style="margin-top:6px; font-size:13px; line-height:1.5; color:#262626; font-weight:500;">
+        pencetin aja kotak-kotak nya yaa
+      </p>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('jeda', this)">coba</button>
+        <button class="tab-btn" onclick="switchTab('sekolah', this)">tebak</button>
+        <button class="tab-btn" onclick="switchTab('random', this)">pencet</button>
+      </div>
+
+      <div id="mainBox" class="box-trigger open" onclick="toggleMainBox(event)">
+        <div class="box-head">
+          <span id="mainBoxLabel">panaseaa</span>
+          <span id="mainBoxArrow">^</span>
+        </div>
+        <div class="box-body" id="mainBoxText">
+          dan apabila kamu adalah sandiwara semu, aku akan tetap mengingatmu sebagai panaseaku
+        </div>
+      </div>
+    </section>
+
+    <!-- DAFTAR KOTAK PESAN YANG BISA DIPENCET -->
+    <section class="stack">
+      <div class="mini-box" onclick="toggleMini(this, event)">
+        <div class="mini-top">
+          <span class="mini-title">eh ada lagi tau</span>
+          <svg width="24" height="24" viewBox="0 0 100 90"><use href="#spidey-mask"></use></svg>
+        </div>
+        <div class="mini-note">semangat ya, maaf kalo aku masih suka ganggu kamu, sekarang terakhir kok janji ga ganggu lagi.</div>
+      </div>
+
+      <div class="mini-box pink" onclick="toggleMini(this, event)">
+        <div class="mini-top">
+          <span class="mini-title">loh ko lagi</span>
+          <span class="font-hd" style="font-size:12px;">OPEN</span>
+        </div>
+        <div class="mini-note">rupanya, keindahan memang punya rupa, eh sialnya rupa itu kamu 😅</div>
+      </div>
+
+      <div class="mini-box" onclick="toggleMini(this, event)">
+        <div class="mini-top">
+          <span class="mini-title">eh belum, sabar</span>
+          <svg width="24" height="24" viewBox="0 0 100 90"><use href="#spidey-mask"></use></svg>
+        </div>
+        <div class="mini-note">barangkali semesta terlalu pandai menyimpan rahasia, hingga dia menyembunyikan seseorang seindah kamu diantara miliran manusia 🤷‍♀️</div>
+      </div>
+    </section>
+
+    <!-- KARTU SPIDER-MAN BAWAH (ATUR JARAK DI SINI) -->
+    <section class="card card-pink" style="margin-top:18px; padding:24px 18px; text-align:center;">
+      <div style="display:flex; justify-content:center; cursor:pointer;" onclick="hitSpidey('sp5','b5',event)">
+        <div id="sp5" style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+          <svg width="46" height="46" viewBox="0 0 100 90"><use href="#spidey-mask"></use></svg>
+          <span id="b5" class="spidey-bubble">babay akaaa</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const TAB_DATA = {
+      jeda: {
+        label: "panaseaa",
+        text: "dan apabila kamu adalah sandiwara semu, aku akan tetap mengingatmu sebagai panaseaku"
+      },
+      sekolah: {
+        label: "kalo lebay, maaf yaaa",
+        text: "pantes saja kita tak pernah sama, aku memberi kedalaman, kamu sekedar memantulkan keindahan"
+      },
+      random: {
+        label: "lagi lagii",
+        text: "aku titipin rindu sama burung-burung yang pulang, agar kelak kamu tau ada cinta yang gapernah mengubah arah tujuannya (hehe)"
+      }
+    };
+
+    let sfxOn = true;
+    let audioCtx = null;
+
+    function beep(freq = 540) {
+      if (!sfxOn) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.35, audioCtx.currentTime + 0.07);
+        gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.08);
+      } catch (e) {}
+    }
+
+    function toast(e, txt) {
+      const el = document.createElement("div");
+      el.className = "pop-toast";
+      el.textContent = txt;
+      const x = e && e.clientX ? e.clientX : window.innerWidth / 2;
+      const y = e && e.clientY ? e.clientY : window.innerHeight / 2;
+      el.style.left = (x - 20) + "px";
+      el.style.top = (y - 12) + "px";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 950);
+    }
+
+    function switchTab(key, btn) {
+      beep(550);
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const box = document.getElementById("mainBox");
+      document.getElementById("mainBoxLabel").textContent = TAB_DATA[key].label;
+      document.getElementById("mainBoxText").textContent = TAB_DATA[key].text;
+      box.classList.add("open");
+      document.getElementById("mainBoxArrow").textContent = "^";
+    }
+
+    function toggleMainBox(e) {
+      beep(520);
+      const box = document.getElementById("mainBox");
+      const open = box.classList.toggle("open");
+      document.getElementById("mainBoxArrow").textContent = open ? "^" : "v";
+      if (open) toast(e, "dibuka");
+    }
+
+    function toggleMini(el, e) {
+      beep(530);
+      const open = el.classList.toggle("open");
+      if (open) toast(e, "terbuka");
+    }
+
+    function hitSpidey(id, bubbleId, e) {
+      if (e) e.stopPropagation();
+      beep(630);
+      const el = document.getElementById(id);
+      const bub = document.getElementById(bubbleId);
+      if (el) {
+        el.classList.remove("spidey-bounce");
+        void el.offsetWidth;
+        el.classList.add("spidey-bounce");
+      }
+      if (bub) {
+        bub.classList.add("show");
+        clearTimeout(window["tm_" + bubbleId]);
+        window["tm_" + bubbleId] = setTimeout(() => bub.classList.remove("show"), 1300);
+      }
+      toast(e, "whhoopp");
+    }
+  </script>
+</body>
+</html>
